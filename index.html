@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Access css breakpoints in js</title>
+
+    <style>
+        body {
+            height: 100vh;
+            background-color: black;
+            color: white;
+        }
+
+        /* start for access in responsive breakpoints */
+        body::before {
+            content: 'xxxl';
+            display: none;
+        }
+    
+        @media (max-width: 1399.98px) {
+            body::before {
+                content: 'xl';
+            }
+        }
+    
+        @media (max-width: 1199.98px) {
+            body::before {
+                content: 'lg';
+            }
+        }
+    
+        @media (max-width: 991.98px) {
+            body::before {
+                content: 'md';
+            }
+        }
+    
+        @media (max-width: 767.98px) {
+            body::before {
+                content: 'sm';
+            }
+        }
+    
+        @media (max-width: 575.98px) {
+            body::before {
+                content: 'xs';
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Access css breakpoints on Java Script</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo vitae a suscipit dolores doloremque obcaecati, pariatur reprehenderit quis reiciendis quam, enim ipsam ipsum necessitatibus? Nemo, voluptatem? Dolorem aspernatur perspiciatis quos numquam non. Maxime veritatis sit ex dolor totam rerum, architecto at optio assumenda quasi labore dicta animi aliquid dolorum consequuntur. Minus, provident. Nam sapiente, distinctio deserunt tempore voluptas cum illo earum explicabo? Consequuntur modi, quos possimus illum sequi, atque distinctio non voluptates quaerat, fugiat delectus expedita. Modi quos ex quasi itaque nulla tempora aperiam incidunt deleniti. Quibusdam modi vel ipsa omnis vero aspernatur deleniti natus quis provident ex illum nam magnam molestiae cupiditate tenetur consectetur ratione reiciendis harum error, tempora asperiores ea sint officia libero. Quos, esse fuga? Repellendus dolor, veniam suscipit itaque ab recusandae ipsum harum, atque, sed ipsam quo et vitae deserunt eligendi est reiciendis eum eveniet culpa incidunt mollitia ullam esse at odit? Perspiciatis, consequuntur, quaerat earum necessitatibus corporis ea maxime illo sint recusandae asperiores, maiores tempore molestiae natus laboriosam debitis. Id ipsum, earum laudantium recusandae dolorem in alias, odio molestiae quidem esse reprehenderit eaque mollitia laborum, tempore vel tempora sapiente aliquid vero? Iusto possimus fuga, amet similique labore, eveniet a illo consectetur minus adipisci exercitationem esse.</p>
+    
+
+    <script>
+        // this way for access one breakpoints
+        // const extraSmall = window.matchMedia("(max-width: 575.98px)");
+        // function responsiveCheck(extraSmall) {
+        //     if (extraSmall.matches) {
+        //         console.log('Extra small device');
+        //     }
+        //     else {
+        //         console.log('Other device');
+        //     }
+        // }
+        // responsiveCheck(extraSmall);
+        // extraSmall.addListener(responsiveCheck);
+
+
+        //this way for access all breakpoints
+        const breakpoint = {};
+        breakpoint.refreshValue = function () {
+            this.value = window.getComputedStyle(document.querySelector('body'), ':before').getPropertyValue('content').replace(/\"/g, '');
+            if (breakpoint.value == 'xs') {
+                // $('textarea.form-control').attr('rows', '5');
+                console.log('Extra small device');
+            }
+            else if (breakpoint.value == 'sm' || breakpoint.value == 'md') {
+                // $('textarea.form-control').attr('rows', '7');
+                console.log('Small and medium device');
+            }
+            else {
+                // $('textarea.form-control').attr('rows', '10');
+                console.log('Other device');
+            }
+        };
+
+        //window resize function using js
+        window.addEventListener('resize', function() {
+            breakpoint.refreshValue();
+        });
+
+        //window resize function using jquery
+        // $(window).resize(function () {
+        //     breakpoint.refreshValue();
+        // }).resize();
+    </script>
+</body>
+</html>
